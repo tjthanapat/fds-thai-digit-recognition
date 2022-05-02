@@ -17,7 +17,7 @@ class App(tk.Tk):
         self.canvas = tk.Canvas(
             self, width=500, height=300, bg="white", cursor="cross")
         self.label = tk.Label(self, text="Write Number",
-                              font=("Helvetica", 32))
+                              font=("Tahoma", 32))
         self.classify_btn = tk.Button(
             self, text="Recognise", command=self.classify_handwriting)
         self.button_clear = tk.Button(
