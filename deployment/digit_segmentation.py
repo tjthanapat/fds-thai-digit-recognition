@@ -8,7 +8,7 @@ def calculate_projection(img, axis):
     img = img.copy()
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     height, width = img.shape
-    _, threshold_image = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV)
+    _, threshold_image = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY_INV)
     pixel_sum = np.sum(threshold_image, axis=axis)
     if (axis == 0):
         projection = pixel_sum / (height*255)
@@ -20,15 +20,17 @@ def calculate_projection(img, axis):
 def horizontal_edges(horizontal_projection):
     height = len(horizontal_projection)
     start = 0
-    end = height
+    end = height - 1
     for i in range(height):
-        if (horizontal_projection[i] < horizontal_projection[i+1]):
-            start = i
-            break
+        if (i < height - 1):
+            if (horizontal_projection[i] < horizontal_projection[i+1]):
+                start = i
+                break
     for i in range(height):
-        if (horizontal_projection[height-i-1] < horizontal_projection[height-i-2]):
-            end = height-i-1
-            break
+        if (i < height - 1):
+            if (horizontal_projection[height-i-1] < horizontal_projection[height-i-2]):
+                end = height-i-1
+                break
     return (start, end)
 
 
@@ -64,6 +66,8 @@ def segment_digits(img):
     segments = []
     for edge in v_edges:
         segment = horiz_cropped_img.copy()[:, edge[0]:edge[1]+1]
+        segment = cv2.copyMakeBorder(segment, 20, 20, 20, 20, cv2.BORDER_CONSTANT, None,
+                             value=[255, 255, 255])
         segment = cv2.resize(segment, (224, 224), interpolation=cv2.INTER_AREA)
         segments.append(segment)
     return np.array(segments)
