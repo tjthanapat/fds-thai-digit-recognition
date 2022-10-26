@@ -3,7 +3,8 @@ from keras import layers
 import numpy as np
 
 
-base_model = keras.applications.EfficientNetV2B1(weights='imagenet', include_top=False, input_shape=(224, 224,3))
+base_model = keras.applications.EfficientNetV2B1(
+    weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
 x = base_model.output
 x = layers.GlobalAveragePooling2D()(x)

@@ -28,7 +28,7 @@ class App(tk.Tk):
         self.upload_btn = tk.Button(
             self, text='Upload File', command=self.upload_file)
         # Grid structure
-        self.canvas.grid(row=0, column=0, columnspan=2, pady=2, sticky=W, )
+        self.canvas.grid(row=0, column=0, columnspan=2, pady=2, sticky=W)
         self.label.grid(row=1, column=0, columnspan=2, pady=2, padx=2)
         self.classify_btn.grid(row=2, column=1, pady=20)
         self.clear_btn.grid(row=2, column=0, pady=20)
@@ -74,3 +74,4 @@ class App(tk.Tk):
 app = App()
 app.title('Handwritten Thai Digit Recognition')
 mainloop()
+
